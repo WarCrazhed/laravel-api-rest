@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers\Api\V1;
 
 use App\Models\Category;
 use App\Models\User;
@@ -18,7 +18,7 @@ class CategoryTest extends TestCase
     {
         Sanctum::actingAs(User::factory()->create());
         $categories = Category::factory(2)->create();
-        $response = $this->getJson('/api/categories');
+        $response = $this->getJson('/api/v1/categories');
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonCount(2, 'data')
@@ -38,7 +38,7 @@ class CategoryTest extends TestCase
         Sanctum::actingAs(User::factory()->create());
         $category = Category::factory()->create();
 
-        $response = $this->getJson('/api/categories/' . $category->id);
+        $response = $this->getJson('/api/v1/categories/' . $category->id);
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure([

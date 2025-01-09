@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers\Api\V1;
 
 use App\Models\Tag;
 use App\Models\User;
@@ -16,7 +16,7 @@ class TagTest extends TestCase
     {
         Sanctum::actingAs(User::factory()->create());
         $tags = Tag::factory(2)->create();
-        $response = $this->getJson('/api/tags');
+        $response = $this->getJson('/api/v1/tags');
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonCount(2, 'data')
@@ -39,7 +39,7 @@ class TagTest extends TestCase
         Sanctum::actingAs(User::factory()->create());
         $tag = Tag::factory()->create();
 
-        $response = $this->getJson('/api/tags/' . $tag->id);
+        $response = $this->getJson('/api/v1/tags/' . $tag->id);
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure([
